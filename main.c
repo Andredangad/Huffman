@@ -19,10 +19,21 @@ node *read_tree(FILE *infile) {
     return n;
 }
 
+void init_array(int array[], int size){
+    int i;
+    for(i =0; i<size;i++)
+        array[i] = 0;
+}
+void create_frequency_array(FILE *infile, int frequency[]){
+    char c;
+    while((c = getc(infile)) != EOF)
+        frequency[(unsigned char) c] = frequency[(unsigned char) c] +1;
+}
+
 void encode_file(char *code_table[], FILE *infile, FILE *outfile){
     char c;
     while((c = getc(infile)) != EOF)
-        fprintf(outfile, "%s ", code_table[(int) c]);
+        fprintf(outfile, "%s ", code_table[(unsigned char) c]);
 }
 
 int main(int argc, char **argv) {
@@ -44,11 +55,21 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    int frequency[256];
+    init_array(frequency, 256);
+    create_frequency_array(fin, frequency);
+    int i;
+    for(i =0; i<256;i++)
+        printf("%d : %d\n",i, frequency[i]);
+    /*
     node *n = NULL;
     n = read_tree(fin);
 
     write_tree(n);
 
+    int pos[100]; 
+    tab(n,0, pos);
+    */
     char *code_table[256];
     code_table[97] = "0";
     code_table[98] = "10";
@@ -56,12 +77,9 @@ int main(int argc, char **argv) {
     code_table[100] = "1101";
     code_table[114] = "111";
 
-    char *str = "abracadabra";
-
-    int pos[100]; 
-    tab(n,0, pos);
+   
     rewind(fin);
-    encode_file(pos, fin, fout);
+    encode_file(code_table, fin, fout);
 
     fclose(fin);
     fclose(fout);
