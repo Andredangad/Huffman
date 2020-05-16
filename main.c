@@ -3,96 +3,36 @@
 #include <stdlib.h>
 #include <time.h>
 
-/*     node *p = NULL;
-
-
-      node *p;
-  int x;
-  scanf("%d", &x);
-  if(x == 0){
-    return NULL;
-  }
-  p = create_node(x);
-
-  p->left = scan_tree();
-  p->right = scan_tree();
-
-  return p; */
-
-node *read_text(FILE *infile) {
-
-     node *p;
-  char c = getc(infile);
-    p = create_node('a');
-  if(c == EOF){
+node *read_tree(FILE *infile) {
+    char c;
+    if((c = getc(infile)) == EOF)
+      return NULL;
+    node *n = create_node(' ');    
+    if(c == '0')
+      n = create_node(getc(infile));
+    else{
+      n->left = read_tree(infile);
+      n->right = read_tree(infile);
+    }
+    return n;
     
-        return NULL;
-
-  }
-  if (c == '0'){
-
-    p = create_node(c);
-
 }
-else{
-  p->left = read_text(infile);
-   p->right = read_text(infile);
-
-}
-
-
-
-
- 
-
-
-  return p;
-
-/*   node *t;
-  if (c == '0'){
-
-        c = getc(infile);
-        t = create_node(c);
-  
-}
-
-
-
-
-     while ((c = getc(infile))!= EOF) {
-       
-       if (c == '0'){
-
-        c = getc(infile);
-        create_node(c);
-       }
-       else if()
-       printf("%c\n", c);
-
-    } */
-
-}
-
-
-
 
 int main(int argc, char **argv) {
-  node *p;
-      if (argc < 2) {
+
+    if (argc < 2) {
         fprintf(stderr, "Usage: concordance <in_file>\n");
         return 1;
     }
 
-      FILE *fin = fopen(argv[1], "r");
+    FILE *fin = fopen(argv[1], "r");
     if (fin == NULL) {
         fprintf(stderr, "Error opening file for reading: %s\n", argv[1]);
         return 1;
     }
-p = read_text(fin);
-display_prefix(p);
-write_tree(p);
-  fclose(fin);
-    
-
-  return 0;
+    node *n = NULL;
+    n = read_tree(fin);
+    write_tree(n);
+    fclose(fin);
+    return 0;
 }
