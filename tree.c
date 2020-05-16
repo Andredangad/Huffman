@@ -13,28 +13,18 @@ node *create_node(char data) {
 }
 
 void display_prefix(node *t){
-
-  if(t==NULL){
+  if(t==NULL)
     return;
-  }
   printf("%c\n",t->data);
   display_prefix(t->left);
   display_prefix(t->right);
 
 }
 
-
-
-
- void free_tree(node *t) {
-    node* temp = t;
-    if (!temp){
-       return;
-
-    }
-    free_tree(temp->left);
-    free_tree(temp->right);
-
-    free(temp);
-
+void free_tree(node *t){
+  if(t == NULL)
+    return;
+  free_tree(t->left);
+  free_tree(t->right);
+  free(t);
 }

@@ -1,0 +1,1 @@
+evince current-tree.pdf &>/dev/null &

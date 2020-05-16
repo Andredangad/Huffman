@@ -7,9 +7,9 @@ OBJ=visualtree.o tree.o
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-tp08: main.o $(OBJ)
+huffman: main.o $(OBJ)
 	gcc -o $@ $^ $(LDFLAGS)
 
 .PHONY: clean
 clean:
-	rm -f $(OBJ) main main.o current-tree.dot current-tree.pdf
+	rm -f $(OBJ) huffman main.o current-tree.dot current-tree.pdf

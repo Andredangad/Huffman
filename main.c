@@ -1,4 +1,5 @@
 #include "tree.h"
+#include "visualtree.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
