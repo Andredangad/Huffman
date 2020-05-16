@@ -20,7 +20,7 @@ node *read_tree(FILE *infile) {
 }
 
 int main(int argc, char **argv) {
-
+    
     if (argc < 2) {
         fprintf(stderr, "Usage: concordance <in_file>\n");
         return 1;
@@ -35,7 +35,10 @@ int main(int argc, char **argv) {
     n = read_tree(fin);
     write_tree(n);
     char pos[100]; 
-    tab(n,0, pos);
+    char *code_table[256];
+    tab(n,0, pos, code_table);
+    printf("%s\n", code_table[100]);
+    printf("%s\n", code_table[114]);
     fclose(fin);
     return 0;
 }

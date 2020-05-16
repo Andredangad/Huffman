@@ -41,7 +41,7 @@ int is_int_node(node* t){
     printf("\n"); 
 }  */
 
-void tab(node *t, int i, char pos[]){
+void tab(node *t, int i, char pos[], char* code_table[]){
 
 
  
@@ -50,21 +50,25 @@ void tab(node *t, int i, char pos[]){
   if(is_int_node(t)){
       
      
-      if(t->left){
-        pos[i] = '0';
-        tab(t->left, i+1, pos);
-      }
-      if(t->right){
-        pos[i] = '1';
-        tab(t->right, i+1, pos);
+    if(t->left){
+      pos[i] = '0';
+      tab(t->left, i+1, pos, code_table);
+    }
+    if(t->right){
+      pos[i] = '1';
+      tab(t->right, i+1, pos, code_table);
         
-      }
+    }
 
   }
   else{
 
     printf("%c = ", t->data);
     printf("%s\n",pos);
+    unsigned char a = t->data;
+    code_table[a] = (char*)malloc(50);
+    strcpy(code_table[a], pos);
+
 
   }
 
