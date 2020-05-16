@@ -34,6 +34,8 @@ int main(int argc, char **argv) {
     node *n = NULL;
     n = read_tree(fin);
     write_tree(n);
+    int pos[100]; 
+    tab(n,0, pos);
     fclose(fin);
     return 0;
 }
