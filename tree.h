@@ -10,5 +10,5 @@ typedef struct _node {
 node *create_node(char data);
 void display_prefix(node *t);
 void free_tree(node *t);
-void tab(node *t, int i, char* pos);
+void tab(node *t, int i, char* pos, char* code_table[]);
 #endif /* TREE_H */
