@@ -24,6 +24,13 @@ void init_array(int array[], int size){
     for(i =0; i<size;i++)
         array[i] = 0;
 }
+
+void print_array(int array[], int size){
+    int i;
+    for(i =0; i<size;i++)
+        printf("%d : %d\n", i, array[i]);
+}
+
 void create_frequency_array(FILE *infile, int frequency[]){
     char c;
     while((c = getc(infile)) != EOF)
@@ -55,40 +62,29 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    FILE *ftree = fopen("files/tree.txt", "r");
+    if (ftree == NULL) {
+        fprintf(stderr, "Error opening file for reading: %s\n", "files/tree.txt");
+        return 1;
+    }
+
     int frequency[256];
     init_array(frequency, 256);
     create_frequency_array(fin, frequency);
-    int i;
-    for(i =0; i<256;i++)
-        printf("%d : %d\n",i, frequency[i]);
-    /*
-    node *n = NULL;
-    n = read_tree(fin);
-
-    write_tree(n);
-
-    int pos[100]; 
-    tab(n,0, pos);
-    */
- /*    char *code_table[256];
-    code_table[97] = "0";
-    code_table[98] = "10";
-    code_table[99] = "1100";
-    code_table[100] = "1101";
-    code_table[114] = "111"; */
+    print_array(frequency, 256);
 
     node *n = NULL;
-    n = read_tree(fin);
+    n = read_tree(ftree);
     write_tree(n);
+
     char pos[100]; 
     char *code_table[256];
     tab(n,0, pos, code_table);
-
    
     rewind(fin);
     encode_file(code_table, fin, fout);
-
     fclose(fin);
     fclose(fout);
+    fclose(ftree);
     return 0;
 }
