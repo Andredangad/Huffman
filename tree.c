@@ -33,16 +33,16 @@ int is_int_node(node* t){
 
 }
 
-void printTab(int arr[], int n) { 
+/* void printTab(int arr[], int n) { 
     int i; 
     for (i = 0; i < n; ++i) 
-        printf("%d", arr[i]); 
+        printf("%s", arr[i]); 
   
     printf("\n"); 
-} 
+}  */
 
-void tab(node *t, int i, int pos[]){
-  node *p;
+void tab(node *t, int i, char pos[]){
+
 
  
   if(t==NULL)
@@ -51,11 +51,11 @@ void tab(node *t, int i, int pos[]){
       
      
       if(t->left){
-        pos[i] = 0;
+        pos[i] = '0';
         tab(t->left, i+1, pos);
       }
       if(t->right){
-        pos[i] = 1;
+        pos[i] = '1';
         tab(t->right, i+1, pos);
         
       }
@@ -64,7 +64,7 @@ void tab(node *t, int i, int pos[]){
   else{
 
     printf("%c = ", t->data);
-    printTab(pos,i);
+    printf("%s\n",pos);
 
   }
 
