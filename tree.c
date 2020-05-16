@@ -27,7 +27,6 @@ void display_prefix(node *t){
 int is_int_node(node* t){
   if(t->left==NULL && t->right == NULL)
     return 0;
-  
   else
     return 1;
 
