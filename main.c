@@ -44,7 +44,7 @@ void encode_file(char *code_table[], FILE *infile, FILE *outfile){
 }
 
 int main(int argc, char **argv) {
-    
+    char *code_table[256];
     if (argc < 3) {
         fprintf(stderr, "Usage: concordance <in_file> <out_file>\n");
         return 1;
@@ -91,7 +91,7 @@ int main(int argc, char **argv) {
     write_tree(n);
 
     char pos[100]; 
-    char *code_table[256];
+    
     tab(n,0, pos, code_table);
    
     rewind(fin);
