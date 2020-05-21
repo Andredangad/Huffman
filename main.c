@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
 
 
 
-    
+    node *t = NULL;
     for(i=0;i<256;i++){
         if(frequency[i] != 0){
             node *t = create_node(i, frequency[i]);
@@ -86,13 +86,9 @@ int main(int argc, char **argv) {
         }
 
     }
-
-  
-    
-    node *p =NULL;
-    p = huffman(q,p);
+    t = huffman(q,t);
     /* display_infix_word(p); */
-    write_tree(p);
+    write_tree(t);
 
     node *n = NULL;
     n = read_tree(ftree);

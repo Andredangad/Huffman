@@ -53,10 +53,6 @@ void tab(node *t, int i, char *pos, char *code_table[]){
     }
   } 
 
-
-
-
-
   else{
       printf("%c = %s\n", t->data, pos);
       unsigned char a = t->data;
