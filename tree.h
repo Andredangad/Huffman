@@ -23,6 +23,8 @@ void display_prefix(node *t);
 void free_tree(node *t);
 void tab(node *t, int i, char* pos, char* code_table[]);
 prioqueue *create_pq();
-void insert_pq(prioqueue *q, int inx, int tab);
+void insert_pq(prioqueue *q, node *t);
 void display_pq(prioqueue *q);
+node *huffman(prioqueue *q, node *t);
+void display_infix_word(node *t);
 #endif /* TREE_H */

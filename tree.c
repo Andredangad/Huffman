@@ -89,13 +89,59 @@ void display_pq(prioqueue *q){
 
 }
 
-void insert_pq(prioqueue *q, int inx, int tab){
-  if(tab == 0){
+node *remove_min_pq(prioqueue *q){
+    assert(q->size > 0);
+    link *tmp;
+    if(q->first == NULL){
+        return NULL;
+
+    }
+    node *n = q->first->node;
+    tmp = q->first;
+    q->first = q->first->next;
+    free(tmp);
+
+  
+    q->size--;
+    
+     
+    return n;
+
+
+}
+
+void display_infix_word(node *t){
+ if(t==NULL){
     return;
   }
+  display_infix_word(t->left);
+  printf("%d\n",t->freq);
+  display_infix_word(t->right);
+
+}
+
+node *huffman(prioqueue *q, node *t){
+  while(q->size >= 2){
+    node *t1 = remove_min_pq(q);
+    node *t2 = remove_min_pq(q);
+    t = create_node(' ', t1->freq + t2->freq);
+    t->left = t1;
+    t->right = t2;
+    insert_pq(q,t);
+
+  }
+  return q->first->node;
+
+
+
+
+}
+
+void insert_pq(prioqueue *q, node *t){
+
  
   link *new_link = (link*)malloc(sizeof(link));
-  node *t = create_node(inx, tab);
+  
   new_link->node = t;
 
 
@@ -111,7 +157,7 @@ void insert_pq(prioqueue *q, int inx, int tab){
      
 /* Cas 2 : Insertion en début de liste */
 
-    if(q->first->node->freq >= tab){
+    if(q->first->node->freq >= t->freq){
         
         new_link->next = q->first;
         q->first = new_link;
@@ -123,7 +169,7 @@ void insert_pq(prioqueue *q, int inx, int tab){
     link *pred= q->first;
     link *ptr = pred->next;
 /* Cas 3 Recherche de la bonne position*/
-    while (ptr !=NULL && ptr->node->freq < tab) {
+    while (ptr !=NULL && ptr->node->freq < t->freq) {
 
         pred = pred->next;
         ptr = ptr->next;

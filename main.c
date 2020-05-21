@@ -80,15 +80,23 @@ int main(int argc, char **argv) {
 
     
     for(i=0;i<256;i++){
-        insert_pq(q,i,frequency[i]);
-    }
-  
-    display_pq(q);
+        if(frequency[i] != 0){
+            node *t = create_node(i, frequency[i]);
+            insert_pq(q,t);
+        }
 
+    }
+
+  
+    
+    node *p =NULL;
+    p = huffman(q,p);
+    /* display_infix_word(p); */
+    write_tree(p);
 
     node *n = NULL;
     n = read_tree(ftree);
-    write_tree(n);
+   /*  write_tree(n); */
 
     char pos[100]; 
     
