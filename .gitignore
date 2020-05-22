@@ -2,3 +2,5 @@ tp08
 *.o
 huffman
 current-tree*
+files/abra.txt
+out.txt
