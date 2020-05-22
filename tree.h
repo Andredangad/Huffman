@@ -27,4 +27,6 @@ void insert_pq(prioqueue *q, node *t);
 void display_pq(prioqueue *q);
 node *huffman(prioqueue *q, node *t);
 void display_infix_word(node *t);
+void free_pq(prioqueue *q);
+void free_code_table(char *code_table[], int frequency[]);
 #endif /* TREE_H */

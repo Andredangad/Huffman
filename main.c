@@ -97,7 +97,11 @@ int main(int argc, char **argv) {
             insert_pq(q,t);
         }
     }
+    
+    display_pq(q);
     t = huffman(q,t);
+
+    display_pq(q);
 
     write_tree(t);
     /* Print the Huffman tree to the file */
@@ -119,5 +123,8 @@ int main(int argc, char **argv) {
     /* Close the FILE pointers */
     fclose(fin);
     fclose(fout);
+    free_pq(q);
+    free_tree(t);
+    free_code_table(code_table, frequency);
     return 0;
 }

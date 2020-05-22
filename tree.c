@@ -82,9 +82,8 @@ void display_pq(prioqueue *q){
 node *remove_min_pq(prioqueue *q){
     assert(q->size > 0);
     link *tmp;
-    if(q->first == NULL){
+    if(q->first == NULL)
         return NULL;
-    }
     node *n = q->first->node;
     tmp = q->first;
     q->first = q->first->next;
@@ -100,7 +99,6 @@ void display_infix_word(node *t){
   display_infix_word(t->left);
   printf("%d\n",t->freq);
   display_infix_word(t->right);
-
 }
 
 node *huffman(prioqueue *q, node *t){
@@ -160,4 +158,16 @@ void free_tree(node *t){
   free_tree(t->left);
   free_tree(t->right);
   free(t);
+}
+
+void free_code_table(char *code_table[], int frequency[]){
+  int i;
+  for(i=0;i<256;i++)
+    if(frequency[i] > 0)
+      free(code_table[i]);
+}
+
+void free_pq(prioqueue *q){
+  free(q->first);
+  free(q);
 }
