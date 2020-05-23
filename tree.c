@@ -4,11 +4,11 @@
 #include <assert.h>
 #include <string.h>
 
-node *create_node(char data, int i) {
+node *create_node(char data) {
   node *n = (node *)malloc(sizeof(node));
   assert(n != NULL);
   n->data = data;
-  n->freq = i;
+  n->freq = 0;
   n->left = NULL;
   n->right = NULL;
   return n;
@@ -43,13 +43,14 @@ void create_code_table(node *t, int i, char *pos, char *code_table[]){
       return;
   if(is_int_node(t)){
     if(t->left){
-      pos[i] = '0';
+      strcat(pos,"0");
       create_code_table(t->left, i+1, pos, code_table);
-      pos[i+1] = 0;
+      pos[i] = 0;
     }
     if(t->right){
-       pos[i] = '1';
+       strcat(pos,"1");
         create_code_table(t->right, i+1, pos,code_table);
+        
     }
   }
   else{
@@ -105,7 +106,8 @@ node *huffman(prioqueue *q, node *t){
   while(q->size >= 2){
     node *t1 = remove_min_pq(q);
     node *t2 = remove_min_pq(q);
-    t = create_node(' ', t1->freq + t2->freq);
+    t = create_node(' ');
+    t->freq = t1->freq + t2->freq;
     t->left = t1;
     t->right = t2;
     insert_pq(q,t);

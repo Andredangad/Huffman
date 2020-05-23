@@ -18,7 +18,7 @@ typedef struct _prioqueue {
     int size;
 } prioqueue;
 
-node *create_node(char data, int i);
+node *create_node(char data);
 void display_prefix(node *t);
 void free_tree(node *t);
 void create_code_table(node *t, int i, char* pos, char* code_table[]);

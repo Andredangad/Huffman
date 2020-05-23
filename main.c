@@ -9,9 +9,9 @@ node *read_tree(FILE *infile) {
     char c;
     if((c = getc(infile)) == EOF)
       return NULL;
-    node *n = create_node(EOF,0);    
+    node *n = create_node(EOF);
     if(c == '0')
-      n = create_node(getc(infile),0);
+      n = create_node(getc(infile));
     else{
       n->left = read_tree(infile);
       n->right = read_tree(infile);
@@ -93,7 +93,8 @@ int main(int argc, char **argv) {
     node *t = NULL;
     for(i=0;i<256;i++){
         if(frequency[i] != 0){
-            node *t = create_node(i, frequency[i]);
+            node *t = create_node(i);
+            t->freq = frequency[i];
             insert_pq(q,t);
         }
     }
