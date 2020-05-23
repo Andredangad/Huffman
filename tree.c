@@ -50,18 +50,18 @@ void create_code_table(node *t, int i, char *pos, char *code_table[]){
     if(t->right){
        strcat(pos,"1");
         create_code_table(t->right, i+1, pos,code_table);
-        
     }
   }
   else{
       unsigned char a = t->data;
-      code_table[a] = (char*)malloc(50);
+      code_table[a] = (char*)malloc(sizeof(pos)*sizeof(char));
       strcpy(code_table[a], pos);
   }
 }
 
 prioqueue *create_pq() {
   prioqueue *q = (prioqueue*)malloc(sizeof(prioqueue));
+  q->first = NULL;
   q->size = 0;
   return q;
 }
@@ -118,6 +118,7 @@ node *huffman(prioqueue *q, node *t){
 void insert_pq(prioqueue *q, node *t){
   link *new_link = (link*)malloc(sizeof(link));
   new_link->node = t;
+  new_link->next = NULL;
 
 /* Cas 1 : Insertion dans une liste null*/
     if(q->size == 0){

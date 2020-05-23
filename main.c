@@ -102,7 +102,6 @@ int main(int argc, char **argv) {
     display_pq(q);
     t = huffman(q,t);
 
-    display_pq(q);
 
     write_tree(t);
     /* Print the Huffman tree to the file */
@@ -112,6 +111,9 @@ int main(int argc, char **argv) {
     char *code_table[256];
     char pos[100]; 
     
+    for(i=0;i<100;i++){
+        pos[i] = malloc(sizeof(char));
+    }
     create_code_table(t,0, pos, code_table);
 
     /* Print the number of encoded characters */
