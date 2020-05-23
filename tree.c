@@ -4,15 +4,17 @@
 #include <assert.h>
 #include <string.h>
 
-node *create_node(char data) {
+node *create_node(char* data) {
   node *n = (node *)malloc(sizeof(node));
   assert(n != NULL);
-  n->data = data;
-  n->freq = 0;
+  n->data = (char *)malloc(2*sizeof(char));
+  strcpy(n->data,data);
+  n->freq = 1;
   n->left = NULL;
   n->right = NULL;
   return n;
 }
+
 
 void display_prefix(node *t){
   if(t==NULL)

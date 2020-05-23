@@ -5,19 +5,9 @@
 #include <time.h>
 #include <string.h>
 
-node *read_tree(FILE *infile) {
-    char c;
-    if((c = getc(infile)) == EOF)
-      return NULL;
-    node *n = create_node(EOF);
-    if(c == '0')
-      n = create_node(getc(infile));
-    else{
-      n->left = read_tree(infile);
-      n->right = read_tree(infile);
-    }
-    return n;
-}
+#define MAX_WORD_LENGTH 50
+
+
 
 void print_tree(node *t, FILE *outfile){
     if(t==NULL){
@@ -28,8 +18,8 @@ void print_tree(node *t, FILE *outfile){
     else 
         fprintf(outfile,"0");
     print_tree(t->left, outfile);
-    if(t->data != EOF)
-        fprintf(outfile,"%c",t->data);        
+    if(t->data[0] != EOF)
+        fprintf(outfile,"%s",t->data);        
     print_tree(t->right, outfile);
 }
 
