@@ -14,6 +14,34 @@ node *create_node(char data) {
   return n;
 }
 
+node *read_tree(FILE *infile) {
+    char c;
+    if((c = getc(infile)) == '-' && getc(infile) == '1')
+      return NULL;
+    node *n = create_node(EOF);
+    if(c == '0')
+      n = create_node(getc(infile));
+    else{
+      n->left = read_tree(infile);
+      n->right = read_tree(infile);
+    }
+    return n;
+}
+
+void print_tree(node *t, FILE *outfile){
+    if(t==NULL){
+        return;
+    }
+    if(t->left != NULL || t->right != NULL)
+        fprintf(outfile,"1");
+    else 
+        fprintf(outfile,"0");
+    print_tree(t->left, outfile);
+    if(t->data != EOF)
+        fprintf(outfile,"%c",t->data);        
+    print_tree(t->right, outfile);
+}
+
 void display_prefix(node *t){
   if(t==NULL)
     return;
@@ -106,7 +134,7 @@ node *huffman(prioqueue *q, node *t){
   while(q->size >= 2){
     node *t1 = remove_min_pq(q);
     node *t2 = remove_min_pq(q);
-    t = create_node(' ');
+    t = create_node(EOF);
     t->freq = t1->freq + t2->freq;
     t->left = t1;
     t->right = t2;
@@ -163,9 +191,9 @@ void free_tree(node *t){
   free(t);
 }
 
-void free_code_table(char *code_table[], int frequency[]){
+void free_code_table(char *code_table[], int frequency[], int size){
   int i;
-  for(i=0;i<256;i++)
+  for(i=0;i<size;i++)
     if(frequency[i] > 0)
       free(code_table[i]);
 }

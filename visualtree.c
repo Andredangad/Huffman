@@ -27,7 +27,10 @@ void write_end(FILE *f) {
  * Write the DOT code for a single node n to an open file f.
  */
 void write_node(FILE *f, node *n) {
-  fprintf(f, "  n%p [label=\"<left> | <value> %c | <right>\"];\n", n, n->data);
+  if(n->data == EOF)
+     fprintf(f, "  n%p [label=\"<left> | <value> %c | <right>\"];\n", n, ' ');
+  else
+    fprintf(f, "  n%p [label=\"<left> | <value> %c | <right>\"];\n", n, n->data);
 }
 
 /*

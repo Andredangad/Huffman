@@ -1,6 +1,7 @@
 #ifndef TREE_H
 #define TREE_H
 
+#include <stdio.h>
 typedef struct _node {
     char data;               /* data stored : char    */
     int freq;                
@@ -19,6 +20,8 @@ typedef struct _prioqueue {
 } prioqueue;
 
 node *create_node(char data);
+node *read_tree(FILE *infile);
+void print_tree(node *t, FILE *outfile);
 void display_prefix(node *t);
 void free_tree(node *t);
 void create_code_table(node *t, int i, char* pos, char* code_table[]);
@@ -28,5 +31,5 @@ void display_pq(prioqueue *q);
 node *huffman(prioqueue *q, node *t);
 void display_infix_word(node *t);
 void free_pq(prioqueue *q);
-void free_code_table(char *code_table[], int frequency[]);
+void free_code_table(char *code_table[], int frequency[], int size);
 #endif /* TREE_H */

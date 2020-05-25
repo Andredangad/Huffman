@@ -2,48 +2,14 @@
 #include "visualtree.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <string.h>
 
-node *read_tree(FILE *infile) {
-    char c;
-    if((c = getc(infile)) == EOF)
-      return NULL;
-    node *n = create_node(EOF);
-    if(c == '0')
-      n = create_node(getc(infile));
-    else{
-      n->left = read_tree(infile);
-      n->right = read_tree(infile);
-    }
-    return n;
-}
-
-void print_tree(node *t, FILE *outfile){
-    if(t==NULL){
-        return;
-    }
-    if(t->left != NULL || t->right != NULL)
-        fprintf(outfile,"1");
-    else 
-        fprintf(outfile,"0");
-    print_tree(t->left, outfile);
-    if(t->data != EOF)
-        fprintf(outfile,"%c",t->data);        
-    print_tree(t->right, outfile);
-}
+#define ASCII_SIZE 256
 
 void init_array(int array[], int size){
     int i;
     for(i =0; i<size;i++)
         array[i] = 0;
-}
-
-void print_array(int array[], int size){
-    int i;
-    for(i =0; i<size;i++)
-        if(array[i] != 0)
-        printf("%d : %d\n", i, array[i]);
 }
 
 int create_frequency_array(FILE *infile, int frequency[]){
@@ -59,7 +25,7 @@ int create_frequency_array(FILE *infile, int frequency[]){
 void print_encoded_file(char *code_table[], FILE *infile, FILE *outfile){
     char c;
     while((c = getc(infile)) != EOF)
-        fprintf(outfile, "%s ", code_table[(unsigned char)c]);
+        fprintf(outfile, "%s", code_table[(unsigned char)c]);
 }
 
 int main(int argc, char **argv) {
@@ -81,8 +47,8 @@ int main(int argc, char **argv) {
     }
 
     /* Create the frequency array */
-    int frequency[256];
-    init_array(frequency, 256);
+    int frequency[ASCII_SIZE];
+    init_array(frequency, ASCII_SIZE);
     int nb_char = 0;
     nb_char = create_frequency_array(fin, frequency);
 
@@ -91,29 +57,25 @@ int main(int argc, char **argv) {
     int i;
 
     node *t = NULL;
-    for(i=0;i<256;i++){
+    for(i=0;i<ASCII_SIZE;i++){
         if(frequency[i] != 0){
             node *t = create_node(i);
             t->freq = frequency[i];
             insert_pq(q,t);
         }
     }
-    
-    display_pq(q);
+
     t = huffman(q,t);
 
-
-    write_tree(t);
     /* Print the Huffman tree to the file */
     print_tree(t, fout);
-    
+    fprintf(fout,"-1");
+
     /* Encode the file with the Huffman tree */
-    char *code_table[256];
-    char pos[100]; 
-    
-    for(i=0;i<100;i++){
-        pos[i] = malloc(sizeof(char));
-    }
+    char *code_table[ASCII_SIZE];
+    char *pos = (char*)malloc(100*sizeof(char));
+    memset(pos,0,100);
+
     create_code_table(t,0, pos, code_table);
 
     /* Print the number of encoded characters */
@@ -126,8 +88,9 @@ int main(int argc, char **argv) {
     /* Close the FILE pointers */
     fclose(fin);
     fclose(fout);
+    free(pos);
     free_pq(q);
     free_tree(t);
-    free_code_table(code_table, frequency);
+    free_code_table(code_table, frequency, ASCII_SIZE);
     return 0;
 }
