@@ -58,32 +58,22 @@ int is_int_node(node* t){
     return 1;
 }
 
-/* void printTab(int arr[], int n) { 
-    int i; 
-    for (i = 0; i < n; ++i) 
-        printf("%s", arr[i]); 
-  
-    printf("\n"); 
-}  */
 
-void create_code_table(node *t, int i, char *pos, char *code_table[]){
-  if(t==NULL)
-      return;
-  if(is_int_node(t)){
-    if(t->left){
-      strcat(pos,"0");
-      create_code_table(t->left, i+1, pos, code_table);
-      pos[i] = 0;
-    }
-    if(t->right){
-       strcat(pos,"1");
-        create_code_table(t->right, i+1, pos,code_table);
-    }
+void create_code_table(node *t, char *code_table[], char buffer[], int index, char elt){
+  if (t == NULL){
+    return;
+  }
+  buffer[index] = elt;
+
+  if (t->left == NULL && t->right == NULL){
+
+    unsigned char a = t->data;
+    code_table[a] = (char *)malloc(sizeof(char *) * sizeof(char));
+    strcpy(code_table[a], buffer);
   }
   else{
-      unsigned char a = t->data;
-      code_table[a] = (char*)malloc(sizeof(pos)*sizeof(char));
-      strcpy(code_table[a], pos);
+    create_code_table(t->left, code_table, buffer, index + 1, '0');
+    create_code_table(t->right, code_table, buffer, index + 1, '1');
   }
 }
 
