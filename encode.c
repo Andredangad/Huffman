@@ -74,8 +74,14 @@ int main(int argc, char **argv) {
     /* Encode the file with the Huffman tree */
     char *code_table[ASCII_SIZE];
     char* buffer = (char*)malloc(100*sizeof(char));
-    create_code_table(t,code_table, buffer, 0, 0);
+    memset(buffer,0,100);
+    create_code_table(t,code_table, buffer, 0, '0');
     free(buffer);
+    int te;
+/*     for(te = 0;te<10;te++){
+        printf("%s",code_table[te]);
+
+    } */
 
     /* Print the number of encoded characters */
     fprintf(fout,"\n%d\n",nb_char);

@@ -63,13 +63,17 @@ void create_code_table(node *t, char *code_table[], char buffer[], int index, ch
   if (t == NULL){
     return;
   }
-  buffer[index] = elt;
+  if (index != 0){
+    buffer[index - 1] = elt;
+  }
 
   if (t->left == NULL && t->right == NULL){
-
+   
     unsigned char a = t->data;
-    code_table[a] = (char *)malloc(sizeof(char *) * sizeof(char));
+    code_table[a] = (char *)malloc(sizeof(char *) * 50);
     strcpy(code_table[a], buffer);
+  
+  
   }
   else{
     create_code_table(t->left, code_table, buffer, index + 1, '0');
