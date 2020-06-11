@@ -23,7 +23,7 @@ int create_frequency_array(FILE *infile, int frequency[]){
 }
 
 void print_encoded_file(char *code_table[], FILE *infile, FILE *outfile){
-    char c;
+    int c;
     while((c = getc(infile)) != EOF)
         fprintf(outfile, "%s", code_table[(unsigned char)c]);
 }

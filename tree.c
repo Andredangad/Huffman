@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <string.h>
 
-node *create_node(char data) {
+node *create_node(int data) {
   node *n = (node *)malloc(sizeof(node));
   assert(n != NULL);
   n->data = data;

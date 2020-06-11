@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 typedef struct _node {
-    char data;               /* data stored : char    */
+    int data;               /* data stored : char    */
     int freq;                
     struct _node *left;      /* pointer to the left child   */
     struct _node *right;     /* pointer to the right child  */
@@ -19,7 +19,7 @@ typedef struct _prioqueue {
     int size;
 } prioqueue;
 
-node *create_node(char data);
+node *create_node(int data);
 node *read_tree(FILE *infile);
 void print_tree(node *t, FILE *outfile);
 void display_prefix(node *t);
