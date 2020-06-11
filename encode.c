@@ -78,10 +78,7 @@ int main(int argc, char **argv) {
     create_code_table(t,code_table, buffer, 0, '0');
     free(buffer);
     int te;
-/*     for(te = 0;te<10;te++){
-        printf("%s",code_table[te]);
 
-    } */
 
     /* Print the number of encoded characters */
     fprintf(fout,"\n%d\n",nb_char);

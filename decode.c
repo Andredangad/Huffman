@@ -21,8 +21,8 @@ char find_in_tree(node *n, FILE *file){
 void print_decoded_file(node *n, FILE *fin, FILE *fout){
 	char c;
     fscanf(fin, "%c",&c);
-    while((c = getc(fin)) != '\n')
-        getc(fin);
+ /*    while((c = getc(fin)) != '\n')
+        getc(fin); */
     while((c = find_in_tree(n, fin)) != EOF){
         fputc(c,fout);
     }
