@@ -76,9 +76,7 @@ int main(int argc, char **argv) {
     char* buffer = (char*)malloc(100*sizeof(char));
     memset(buffer,0,100);
     create_code_table(t,code_table, buffer, 0, '0');
-    free(buffer);
-    int te;
-
+   
 
     /* Print the number of encoded characters */
     fprintf(fout,"\n%d\n",nb_char);
@@ -90,7 +88,7 @@ int main(int argc, char **argv) {
     /* Close the FILE pointers */
     fclose(fin);
     fclose(fout);
-  /*   free(pos); */
+    free(buffer);
     free_pq(q);
     free_tree(t);
     free_code_table(code_table, frequency, ASCII_SIZE);
