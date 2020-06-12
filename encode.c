@@ -73,10 +73,16 @@ int main(int argc, char **argv) {
 
     /* Encode the file with the Huffman tree */
     char *code_table[ASCII_SIZE];
+<<<<<<< Updated upstream:encode.c
     char *pos = (char*)malloc(100*sizeof(char));
     memset(pos,0,100);
 
     create_code_table(t,0, pos, code_table);
+=======
+    char *buffer = (char *)malloc(sizeof(char) * 30);
+    memset(buffer, 0, 30);
+    create_code_table(t, code_table, buffer, 0, '0');
+>>>>>>> Stashed changes:src/encode.c
 
     /* Print the number of encoded characters */
     fprintf(fout,"\n%d\n",nb_char);
