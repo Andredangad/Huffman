@@ -64,7 +64,7 @@ void create_code_table(node *t, char *code_table[], char buffer[], int index, ch
   if (t->left == NULL && t->right == NULL){
     buffer[index] = 0;
     unsigned char a = t->data;
-    code_table[a] = (char *)malloc(sizeof(char *) * 100);
+    code_table[a] = (char *)malloc(sizeof(char) * 30);
     strcpy(code_table[a], buffer);
   
   }
