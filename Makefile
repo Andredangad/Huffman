@@ -1,10 +1,12 @@
 CC=gcc
 CFLAGS=-Wall -ansi
 LDFLAGS=
-DEPS=visualtree.h tree.h 
-OBJ=visualtree.o tree.o
+DEPS=$(HPATH)visualtree.h  $(HPATH)prioqueue.h  $(HPATH)tree.h 
+OBJ=visualtree.o tree.o prioqueue.o
+SRCPATH=src/
+HPATH=headers/
 
-%.o: %.c $(DEPS)
+%.o: $(SRCPATH)%.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 encode: encode.o $(OBJ)

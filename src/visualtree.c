@@ -1,4 +1,4 @@
-#include "visualtree.h"
+#include "../headers/visualtree.h"
 #include <stdio.h>
 #include <stdlib.h>
 
